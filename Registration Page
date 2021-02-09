@@ -1,0 +1,51 @@
+from tkinter import *
+from tkinter import  messagebox
+import mysql.connector
+def a():
+    def x():
+        Name= E.get()
+        Phone_no = E1.get()
+        Email_Id= E2.get()
+        Password = E3.get()
+
+        if(Name=="" or Phone_no=="" or Email_Id=="" or Password==""):
+            messagebox.showerror("Error","All field required :)")
+        else:
+            db = mysql.connector.connect(host="localhost", user="root", passwd="dharam", database="today")
+            cursor = db.cursor()
+            y="insert into regi(Name,Phone_no,Email_ID,Password)values('%s','%s','%s','%s')" % (
+            Name,Phone_no,Email_Id,Password)
+            cursor.execute(y)
+            db.commit()
+            E.delete(0,'end')
+            E1.delete(0, 'end')
+            E2.delete(0, 'end')
+            E3.delete(0, 'end')
+            messagebox.showinfo("Information","Account Create Successfully")
+            db.close()
+
+    top1 = Tk()
+    top1.geometry('500x500')
+    top1.configure(background='skyblue')
+
+    head = Label(top1,text = 'CREATE ACCOUNT',font = ('TIMES NEW ROMAN',30),bg='skyblue')
+    head.place(x=50,y=30)
+    l = Label(top1, text='Name',font = ('TIMES NEW ROMAN',25), bg = 'skyblue')
+    l.place(x=10,y=100)
+    E=Entry(top1,bd=10,width=20, font = ('arial',20),bg='white')
+    E.place(x=150,y=90)
+    l1 = Label(top1, text='Phone_no',font = ('TIMES NEW ROMAN',25), bg = 'skyblue')
+    l1.place(x=10,y=170)
+    E1=Entry(top1,bd=10,width=20, font = ('arial',20),bg='white')
+    E1.place(x=150,y=160)
+    l2 = Label(top1, text='Email_ID',font = ('TIMES NEW ROMAN',25), bg = 'skyblue')
+    l2.place(x=10,y=240)
+    E2=Entry(top1,bd=10,width=20, font = ('arial',20),bg='white')
+    E2.place(x=150,y=230)
+    l3 = Label(top1, text='Password',font = ('TIMES NEW ROMAN',25), bg = 'skyblue')
+    l3.place(x=10,y=310)
+    E3=Entry(top1,bd=10,width=20, font = ('arial',20),bg='white')
+    E3.place(x=150,y=300)
+    submit = Button(top1,text='create',width=25,height=3,bd=10,bg='red',command=x)
+    submit.place(x=130,y=400)
+    top1.mainloop()
