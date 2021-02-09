@@ -1,0 +1,14 @@
+from tkinter import *
+from regi import a
+from login import login_in
+root=Tk()
+root.geometry("300x300")
+root.title("Login page")
+root.configure(background="skyblue")
+head = Label(root,text = 'WELCOME USER :)',font = ('TIMES NEW ROMAN',40),bg='skyblue')
+head.place(x=320,y=200)
+login = Button(root,text='Login',width=35,height=3,bd=10,bg='red',font = ('TIMES NEW ROMAN',10),command=login_in)
+login.place(x=500,y=380)
+acc=Button(root,text='Create Account',width=35,height=3,bd=10,bg='red',font = ('TIMES NEW ROMAN',10),command=a)
+acc.place(x=500,y=480)
+root.mainloop()
