@@ -1,0 +1,55 @@
+Login Page:-
+from tkinter import *
+from tkinter import messagebox
+import mysql.connector
+def login_in():
+    def log():
+        user_id=E.get()
+        password=E1.get()
+        if(user_id=="" or password==""):
+            messagebox.showerror("Error","All Field required")
+        else:
+            db = mysql.connector.connect(host="localhost", user="root", passwd="dharam", database="today")
+            cursor = db.cursor()
+            y = "insert into user(user_id,password)values('%s','%s')" % (user_id,password)
+            cursor.execute(y)
+            db.commit()
+            E.delete(0,'end')
+            E1.delete(0,'end')
+            messagebox.showinfo("Information", "Login Successful")
+            db.close()
+    def delete():
+        if (E.get()==""):
+            messagebox.showerror("Errot","user id required for delete")
+        else:
+            db = mysql.connector.connect(host="localhost", user="root", passwd="dharam", database="today")
+            cursor = db.cursor()
+            y = "delete from user where user_id='"+E.get()+"'"
+            cursor.execute(y)
+            db.commit()
+            E.delete(0, 'end')
+            E1.delete(0, 'end')
+            messagebox.showinfo("Information", "delete  Successful")
+            db.close()
+
+
+    top= Tk()
+    top.configure(background='skyblue')
+    top.geometry('500x300')
+
+    l = Label(top, text='LOGIN HERE',font = ('TIMES NEW ROMAN',25),bg= 'skyblue')
+    l.place(x=10,y=10)
+    l = Label(top, text='Username',font = ('TIMES NEW ROMAN',25),bg='skyblue')
+    l.place(x=10,y=70)
+    E=Entry(top,bd=10,width=20,  font = ('arial',20),bg='white')
+    E.place(x=150,y=60)
+    l1 = Label(top, text='Password',font = ('TIMES NEW ROMAN',25),bg= 'skyblue')
+    l1.place(x=10,y=140)
+    E1=Entry(top,bd=10,width=20,  font = ('arial',20),show="*",bg='white')
+    E1.place(x=150,y=130)
+    submit = Button(top,text='login',width=20,bd=10,bg='red',height=3,command=log)
+    submit.place(x=160,y=210)
+    submit = Button(top, text='Delete', width=20, bd=10, bg='red', height=3, command=delete)
+    submit.place(x=340, y=210)
+    top.mainlo()
+
